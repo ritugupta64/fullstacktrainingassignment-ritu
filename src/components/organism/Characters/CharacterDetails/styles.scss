@@ -1,0 +1,17 @@
+.character-details {
+  max-width: 300px;
+  &--image {
+    max-width: 100%;
+  }
+
+  flex-basis: 25%;
+  padding: 10px;
+
+  p {
+    display: block;
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
