@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 import { GlobalContext } from '../../store/context'
 import { getCharacterData } from '../../store/action'
@@ -7,14 +7,29 @@ import CharacterList from '../organism/Characters/CharacterList/characterList'
 import { fetchWrapper } from '../../utilities'
 import Heading from '../atoms/Heading'
 import Select from '../atoms/Select'
-import SearchBox from '../molecules/SearchBox'
-import FilterList from '../organism/FilterList'
+import SearchBox from '../molecules/SearchBox/search'
+import FilterList from '../organism/FilterList/filterList'
 import Tags from '../molecules/Tags'
 import styles from './wrapper.styles'
+import Loader from '../atoms/loader'
 
-const Wrapper = ({className}) => {
+const Speicies = ['Human', 'Mythology', 'Other Species']
+const Gender = ['Male', 'Female']
+const Origin = [
+  'Unknown',
+  'Post-Apocalyptic Earth',
+  'Nuptia 4',
+  'Other Origins',
+]
+
+const selectByID = ['Ascending', 'Descending']
+
+const Base_url = 'https://rickandmortyapi.com/api/character/'
+
+const Wrapper = ({ className }) => {
   const { dispatch } = useContext(GlobalContext)
   const [data, setData] = useState([])
+  const [isLoading, setIsLoading] = useState()
   const [sort, setSort] = useState('Ascending')
   const [search, setSearch] = useState('')
   const [filters, setFilters] = useState({})
@@ -58,9 +73,10 @@ const Wrapper = ({className}) => {
       .join('&')
 
     const url = await fetchWrapper(
-      `https://rickandmortyapi.com/api/character/${searchfilters}${filtersString}`
+      `${Base_url}${searchfilters}${filtersString}`
     )
     setData(url)
+    setIsLoading(true)
     sortedData(url)
     getCharacterData(url, dispatch)
   }
@@ -72,16 +88,9 @@ const Wrapper = ({className}) => {
     setData(sortedData(data))
   }, [sort])
 
-  const Speicies = ['Human', 'Mythology', 'Other Species']
-  const Gender = ['Male', 'Female']
-  const Origin = [
-    'Unknown',
-    'Post-Apocalyptic Earth',
-    'Nuptia 4',
-    'Other Origins',
-  ]
-
-  return (
+  return !isLoading ? (
+    <Loader>Loading...</Loader>
+  ) : (
     <div className={className}>
       <aside className="container__left-column">
         <Heading>Filters</Heading>
@@ -109,13 +118,6 @@ const Wrapper = ({className}) => {
         />
       </aside>
       <section className="container__right-column">
-        <SearchBox getValue={handleSearchValue} labelText="Search by Name" />
-
-        <Select
-          selectList={['Ascending', 'Descending']}
-          SelectOption={handleSorting}
-        />
-
         <Tags
           tags={Object.keys(filters)?.reduce((accumulator, currentValue) => {
             const tagsCategory = filters[currentValue].map((itm) => ({
@@ -125,7 +127,17 @@ const Wrapper = ({className}) => {
             return [...accumulator, ...tagsCategory]
           }, [])}
           getCloseItem={(category, name) => handleCloseFilter(name, category)}
+          className="tags"
         />
+        <div className="container__top-container">
+          <SearchBox
+            getValue={handleSearchValue}
+            labelText="Search by Name"
+            className="search"
+          />
+
+          <Select selectList={selectByID} SelectOption={handleSorting} />
+        </div>
 
         <CharacterList characterList={data?.results} />
       </section>
@@ -135,4 +147,4 @@ const Wrapper = ({className}) => {
 
 export default styled(Wrapper)`
   ${styles};
-`;
+`

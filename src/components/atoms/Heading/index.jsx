@@ -14,7 +14,7 @@ const Heading = ({children, className, headingtype}) => {
 Heading.propTypes = {
     headingtype: PropTypes.string,
     children: PropTypes.oneOfType([
-        PropTypes.element,
+        PropTypes.elementType,
         PropTypes.elementType,
         PropTypes.array,
         PropTypes.object,

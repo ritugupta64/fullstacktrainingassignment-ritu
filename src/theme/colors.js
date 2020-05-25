@@ -1,5 +1,5 @@
 export default {
-  secondary: '#976117',
+  orangeColor: '#976117',
   whiteColor: '#fff',
   blackColor: '#000',
   paraColor: '#5D5D5D',

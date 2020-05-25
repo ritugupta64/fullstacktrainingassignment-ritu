@@ -1,10 +1,10 @@
 import React from 'react'
 import { render, cleanup } from '@testing-library/react'
 import { ThemeProvider } from 'styled-components'
-import { GlobalContextProvider } from './store/context'
-import theme from './theme'
+import { GlobalContextProvider } from '../../store/context'
+import theme from '../../theme'
 
-import Wrapper from './components/Wrapper/wrapper'
+import Wrapper from './wrapper'
 
 let result
 const dispatch = jest.fn()

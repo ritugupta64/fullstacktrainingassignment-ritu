@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../../atoms/Button';
+import './tags.style.scss'
 
 
 const Tags = ({ className, tags, getCloseItem }) => {
@@ -9,7 +10,7 @@ const Tags = ({ className, tags, getCloseItem }) => {
         <div className="tag__item" key={itm.name}>
           {itm.name}
           <Button onClick={() => getCloseItem(itm.category, itm.name)}>
-             close
+             x
           </Button>
         </div>
       ))}

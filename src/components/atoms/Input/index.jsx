@@ -13,6 +13,7 @@ const Input = ({
   value,
   onChange,
   onKeyUp,
+  onKeyPress,
 }) => {
   return React.createElement('input', {
     type,
@@ -23,6 +24,7 @@ const Input = ({
     value,
     onChange,
     onKeyUp,
+    onKeyPress,
   })
 }
 
@@ -33,7 +35,8 @@ Input.defaultProps = {
   value:'',
   onKeyUp: () => {},
   onChange: () => {},
-  id: ''
+  id: '',
+  onKeyPress: () => {},
 }
 
 Input.propTypes = {
@@ -44,7 +47,8 @@ Input.propTypes = {
   id: PropTypes.string,
   onKeyUp: PropTypes.func,
   value: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  onKeyPress: PropTypes.func,
 }
 
 export default styled(Input)`

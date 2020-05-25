@@ -20,13 +20,14 @@ const FilterList = ({ className, filterList, title, getSelectedFilter }) => {
         <ul>
           {filterList?.map((item) => {
             return (
-              <li key={item}>
+              <li key={item} className="filter-list__item">
                 <label key={item} htmlFor={item}>
                   <Input
                     type="checkbox"
                     value={item}
                     name={item}
                     onChange={handleChange}
+                    id={item}
                   />
                   {item}
                 </label>

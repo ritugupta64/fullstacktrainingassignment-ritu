@@ -24,20 +24,65 @@ const CharacterDetails = ({ characterDetails, className }) => {
         <figcaption className="character-details__caption">
           <strong className="character-details__name">{name}</strong>
           <span className="character-details__id">
-            {id} - created {timeStampConvertor(new Date(created))}
+            id: {id} - created {timeStampConvertor(new Date(created))}
           </span>
         </figcaption>
       </figure>
-      <div className={`${className}__demographic`}>
-        <p><strong>Status</strong> {status}</p>
-        <p><strong>Species</strong> {species}</p>
-        <p><strong>Gender</strong> {gender}</p>
-        <p><strong>Origin</strong> {origin.name}</p>
-        <p><strong>Last location</strong> {location.name}</p>
-      </div>
+      <CharacterDetails.Demographics
+        status={status}
+        species={species}
+        gender={gender}
+        origin={origin.name}
+        location={location.name}
+      />
     </article>
   )
 }
+
+const characterDemographics = ({
+  status,
+  species,
+  gender,
+  origin,
+  location,
+}) => {
+  return (
+    <section className="character-details__demographic">
+      <p>
+        <strong>STATUS</strong>{' '}
+        <strong className="character-list__demographic--details">
+          {status}
+        </strong>
+      </p>
+      <p>
+        <strong>SPECIES</strong>{' '}
+        <strong className="character-list__demographic--details">
+          {species}
+        </strong>
+      </p>
+      <p>
+        <strong>GENDER</strong>{' '}
+        <strong className="character-list__demographic--details">
+          {gender}
+        </strong>
+      </p>
+      <p>
+        <strong>ORIGIN</strong>{' '}
+        <strong className="character-list__demographic--details">
+          {origin}
+        </strong>
+      </p>
+      <p>
+        <strong>LAST LOCATION</strong>{' '}
+        <strong className="character-list__demographic--details">
+          {location}
+        </strong>
+      </p>
+    </section>
+  )
+}
+
+CharacterDetails.Demographics = characterDemographics
 
 export default styled(CharacterDetails)`
   ${styles};
